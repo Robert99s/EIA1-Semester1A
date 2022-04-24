@@ -1,0 +1,61 @@
+
+
+header {background-image: url(./IMG/Header.JPG) ;height: 400px; background-repeat: no-repeat; background-position: center; } 
+
+
+nav ul {float: right;
+}
+
+nav li {display: inline-block;
+        margin-top: 30px;
+        margin-right: 30px;
+    }
+
+nav li a {font-family: Arial, Helvetica, sans-serif;
+font-size: 24px;
+color: black;
+text-decoration: none;
+}
+
+
+
+.nav {
+    text-decoration-line: none;
+}
+
+.nav:visited {
+    color: white; 
+}
+.nav:hover {
+    color: black;
+    text-decoration-line: underline;}
+
+#active {color: black;
+        text-decoration-line: underline;}
+
+nav img {height: 45px;
+    position: absolute;
+    margin-left: 25%;
+    margin-top: 30px;}
+
+input {background-color: rgb(160, 160, 160); color: white;}
+#name {width: 500px;}
+#email {width: 500px;}
+#message {height: 100px; width: 500px;}
+
+
+main {position: relative;margin-left: 25%;
+margin-right: 25%; width: 800px; text-align: center;}
+
+footer {position: relative;margin-left: 25%;
+    margin-right: 25%; width: 800px;}
+
+    #Portrait {width: auto; height: 300px; position: center;}
+    
+    #socials {height: 30px;
+        width: 30px;
+        position: absolute; margin-left: 48%; top: 40px;}
+
+    h3 {margin-left: 65%; margin-bottom: 200px;}
+    
+    ::placeholder {color: white;}
