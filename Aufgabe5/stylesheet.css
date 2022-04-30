@@ -1,7 +1,43 @@
-
-
-header {background-image: url(./IMG/Header.JPG) ;height: 400px; background-repeat: no-repeat; background-position: center;
+header {
+    background-image: url(./IMG/Header.JPG);
+    height: 400px; 
+    background-repeat: no-repeat;
+     background-position: center;
+     background-size: cover;
+     min-width: 800px;
+     min-height: 400px;
+     transition: 1s;
+     animation: animate 6s infinite;
+     animation-direction: alternate-reverse;
+     animation-timing-function: ease-in-out;
 }
+
+@keyframes animate {
+0%{background-image: url(./IMG/foto1_big.jpg);
+}
+50% {background-image: url(./IMG/44._20Haslach_20vom_20Urenkopf_20aus_20gesehen.jpg);
+}
+100% {background-image: url(./IMG/Header.JPG);
+}
+}
+
+.banner_container {display:flex;
+margin-left: 90%;
+position: sticky;
+top: 10px;
+height: 0px;
+}
+
+.banner {
+    background-color: rgb(93, 223, 255);
+    transform: translateY(150px) translateY(-50px);
+    box-shadow: 0px 0px 20px rgb(0, 0, 0);
+    padding: 10px;
+    height: 60px;
+    text-align: center;
+}
+
+.intership {font-size: 24px;}
 
 nav ul {float: right;
 }
