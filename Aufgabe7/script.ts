@@ -15,22 +15,38 @@ var Italien22:number = 59.53
 var Schweden08:number = 9.26
 var Schweden22:number = 10.72
 
-var EU22:number = 750.83
+var EU08:number = 437.00
+var EU22:number = 447.70
 
 var Deutschland0822 = (Deutschland22-Deutschland08)/Deutschland08 * 100
 var Frankreich0822 = (Frankreich22-Frankreich08)/Frankreich08 * 100
 var Italien0822 = (Italien22-Italien08)/Italien08 * 100
 var Schweden0822 = (Schweden22-Schweden08)/Schweden08 * 100
+var EU0822 = (EU22-EU08)/EU08 * 100
 
 var DeutschlandEU = (Deutschland22/EU22) * 100
 var FrankreichEU = (Frankreich22/EU22) * 100
 var ItalienEU = (Italien22/EU22) * 100
 var SchwedenEU = (Schweden22/EU22) * 100
+var EUEU = (EU22/EU22) * 100
 
 var DeutschlandPlus = Deutschland22-Deutschland08
 var FrankreichPlus = Frankreich22-Frankreich08
 var ItalienPlus = Italien22-Italien08
 var SchwedenPlus = Schweden22-Schweden08
+var EUPlus = EU22-EU08
+
+function stars () {
+
+    document.querySelector("#Einwohnerzahl").innerHTML = String(EU22) + "Mio";
+    document.querySelector("#ZurEU").innerHTML = String(EUEU.toFixed(2)) + "%";
+    document.querySelector("#Wachstumsrate").innerHTML = String(EU0822.toFixed(2)) + "%";
+    document.querySelector("#Wachstumszahl").innerHTML = String(EUPlus.toFixed(2) + "Mio");
+    document.querySelector("span").innerHTML = "der EU";
+    document.querySelector(".chart").setAttribute('style', 'height: '+String(EUEU)+'%')
+}
+
+    document.querySelector(".stars").addEventListener('click', stars);
 
 function germany () {
 
@@ -40,7 +56,6 @@ function germany () {
     document.querySelector("#Wachstumszahl").innerHTML = String(DeutschlandPlus.toFixed(2) + "Mio");
     document.querySelector("span").innerHTML = "Deutschland";
     document.querySelector(".chart").setAttribute('style', 'height: '+String(DeutschlandEU)+'%')
-
 }
 
     document.querySelector(".germany").addEventListener('click', germany);
@@ -53,8 +68,8 @@ function germany () {
         document.querySelector("#Wachstumszahl").innerHTML = String(FrankreichPlus.toFixed(2) + "Mio");
         document.querySelector("span").innerHTML = "Frankreich";
         document.querySelector(".chart").setAttribute('style', 'height: '+String(FrankreichEU)+'%')
-    }
-    
+}
+
         document.querySelector(".france").addEventListener('click', france);
 
         function italy () {
