@@ -1,37 +1,83 @@
-const sounds = [
-    new Audio("assets/hihat.mp3"),
-    new Audio("assets/kick.mp3"),
-    new Audio("assets/snare.mp3"),
-    new Audio("assets/A.mp3"),
-    new Audio("assets/C.mp3"),
-    new Audio("assets/F.mp3"),
-    new Audio("assets/G.mp3"),
-    new Audio("assets/laugh-1.mp3"),
-    new Audio("assets/laugh-2.mp3")
-];
-// 
-function playSample(sound) {
-    sound.play();
-}
-// Playbutton-Event
-function playBeat() {
-    setInterval(function () {
-        for (let counter = 0; counter < sounds.length; counter++) {
-            sounds[counter].play();
+window.addEventListener("load", function () {
+    // Array: Audiodateien
+    var sounds = [
+        new Audio("assets/hihat.mp3"),
+        new Audio("assets/kick.mp3"),
+        new Audio("assets/snare.mp3"),
+        new Audio("assets/A.mp3"),
+        new Audio("assets/C.mp3"),
+        new Audio("assets/F.mp3"),
+        new Audio("assets/G.mp3"),
+        new Audio("assets/laugh-1.mp3"),
+        new Audio("assets/laugh-2.mp3")
+    ];
+    // zusätzliche Variablen
+    var myInterval;
+    var index = 0;
+    var playback;
+    // function play sounds 
+    function playSample(sound) {
+        sound.play();
+    }
+    // Playbutton-Event & switch Play/Pause Button
+    function playBeat() {
+        if (document.querySelector("#play").getAttribute("class") == "fas fa-play") {
+            document.querySelector("#play").setAttribute("class", "fas fa-pause");
+            myInterval = setInterval(tone, 500);
         }
+        else {
+            document.querySelector("#play").setAttribute("class", "fas fa-play");
+            // tslint:disable-next-line: align
+            clearInterval(myInterval);
+        }
+        // function play beat
+        function tone() {
+            playSample(sounds[index]);
+            index++;
+            if (index == 3) {
+                index = 0;
+            }
+        }
+    }
+    // function delete remix
+    // tslint:disable-next-line: align
+    function deleteRemix() {
+        clearInterval(myInterval);
         // tslint:disable-next-line: align
-    }, 500);
-}
-// Klick-Event
-document.querySelector("#hihat").addEventListener("click", function () { playSample(sounds[0]); });
-document.querySelector("#kick").addEventListener("click", function () { playSample(sounds[1]); });
-document.querySelector("#snare").addEventListener("click", function () { playSample(sounds[2]); });
-document.querySelector("#noteA").addEventListener("click", function () { playSample(sounds[3]); });
-document.querySelector("#noteB").addEventListener("click", function () { playSample(sounds[4]); });
-document.querySelector("#noteC").addEventListener("click", function () { playSample(sounds[5]); });
-document.querySelector("#noteD").addEventListener("click", function () { playSample(sounds[6]); });
-document.querySelector("#laughter1").addEventListener("click", function () { playSample(sounds[7]); });
-document.querySelector("#laughter2").addEventListener("click", function () { playSample(sounds[8]); });
-// Klick-Event Playbutton
-document.querySelector(".fa-play").addEventListener("click", function () { playBeat(); });
+        if (document.querySelector("#play").getAttribute("class") == "fas fa-pause") {
+            document.querySelector("#play").setAttribute("class", "fas fa-play");
+        }
+    }
+    // function play remix
+    function playRemix() {
+        myInterval = setInterval(mix, 250);
+        function mix() {
+            index = Math.floor(Math.random() * 5);
+            playSample(sounds[index]);
+        }
+        playback = true;
+        if (playback == true) {
+            document.querySelector("#play").setAttribute("class", "fas fa-pause");
+        }
+        else {
+            document.querySelector("#play").setAttribute("class", "fas fa-play");
+            // tslint:disable-next-line: align
+            clearInterval(myInterval);
+        }
+    }
+    // Klick-Event Pads
+    document.querySelector("#hihat").addEventListener("click", function () { playSample(sounds[0]); });
+    document.querySelector("#kick").addEventListener("click", function () { playSample(sounds[1]); });
+    document.querySelector("#snare").addEventListener("click", function () { playSample(sounds[2]); });
+    document.querySelector("#noteA").addEventListener("click", function () { playSample(sounds[3]); });
+    document.querySelector("#noteB").addEventListener("click", function () { playSample(sounds[4]); });
+    document.querySelector("#noteC").addEventListener("click", function () { playSample(sounds[5]); });
+    document.querySelector("#noteD").addEventListener("click", function () { playSample(sounds[6]); });
+    document.querySelector("#laughter1").addEventListener("click", function () { playSample(sounds[7]); });
+    document.querySelector("#laughter2").addEventListener("click", function () { playSample(sounds[8]); });
+    // Klick-Event Buttons
+    document.querySelector("#play").addEventListener("click", function () { playBeat(); });
+    document.querySelector("#remix").addEventListener("click", function () { playRemix(); });
+    document.querySelector("#delete").addEventListener("click", function () { deleteRemix(); });
+});
 //# sourceMappingURL=script.js.map

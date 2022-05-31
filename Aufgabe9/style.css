@@ -54,7 +54,18 @@ body {
 
 .fa-pause
 {
-    display: none !important;
+    font-size: 150px;
+    color: white;
+}
+
+.fa-retweet
+{
+    font-size: 150px;
+    color: white;
+}
+
+.fa-trash
+{
     font-size: 150px;
     color: white;
 }
@@ -75,6 +86,16 @@ body {
 }
 
 .fa-pause
+{
+    font-size: 75px;
+}
+
+.fa-retweet
+{
+    font-size: 75px;
+}
+
+.fa-trash
 {
     font-size: 75px;
 }
