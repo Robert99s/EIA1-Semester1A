@@ -1,0 +1,108 @@
+body {
+    background-color: rgb(212, 212, 212);
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 710px;
+}
+
+.app {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    text-align: center;
+    font-size: 60px;
+}
+
+h4 {
+    text-align: center;
+    font-size: 18px;
+}
+
+.task {
+    position: absolute;
+    margin-top: 60px;
+    margin-left: 60px;
+}
+
+input {
+    font-size: 18px;
+    width: 350px;
+    height: 30px;
+    border: 0;
+    border-radius: 10px;
+    padding: 12px;
+}
+
+p {
+    position: absolute;
+    margin-top: 25px;
+    margin-left: 180px;
+}
+
+#btn {
+    font-size: 30px;
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+#neuesDiv {
+    font-size: 15px;
+    float: center;
+    margin-top: 10px;
+    border-radius: 10px;
+    width: 350px;
+    height: 40px;
+}
+
+#eingabe {
+    position: absolute;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-left: 50px;
+}
+
+.fa-trash {
+    font-size: 20px;
+    position: absolute;
+    margin-left: 320px;
+    margin-top: 10px;
+    opacity: 50%;
+}
+
+.fa-circle {
+    font-size: 20px;
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 10px;
+    opacity : 50%;
+}
+
+.fa-check-circle {
+    font-size: 20px;
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 10px;
+    opacity: 100%;
+}
+
+
+
+.addline {
+display: flex;
+justify-content: space-between;
+height: 50px;
+}
+
+#addtask {
+    width: 250px;
+    border-style: solid;
+    text-align: center;
+}
+
+#button {
+    width: 50px;
+    font-size: 35px;
+}
