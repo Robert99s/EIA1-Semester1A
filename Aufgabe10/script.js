@@ -34,6 +34,8 @@ window.addEventListener("load", function () {
         trash.addEventListener("click", deleteToDo);
         function deleteToDo() {
             wrapper.parentElement.removeChild(wrapper);
+            index--;
+            document.querySelector("#todoAmount").innerHTML = String(index + " in total");
         }
     }
     document.addEventListener("keydown", function (event) {

@@ -48,6 +48,8 @@ window.addEventListener("load", function(): void {
         
         function deleteToDo (): void {
             wrapper.parentElement.removeChild(wrapper);
+            index--;
+            document.querySelector("#todoAmount").innerHTML = String( index + " in total");
         }
 
     }
