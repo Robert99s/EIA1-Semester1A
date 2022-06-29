@@ -1,5 +1,5 @@
 window.addEventListener("load", function () {
-    var aufgaben = [
+    var alleAufgaben = [
         {
             de: "Ich heiße Carlos",
             esp: "Me llamo Carlos",
@@ -76,23 +76,46 @@ window.addEventListener("load", function () {
             words: ["¿Dónde", "Queda", "El", "Restaurante?"]
         }
     ];
-    let index = 0;
+    let exercise = 0;
     let score = 0;
     function hard15() {
         var randomindex = Math.floor(Math.random() * 15);
-        document.querySelector("#de").innerHTML = aufgaben[randomindex].de;
+        document.querySelector("#de").innerHTML = alleAufgaben[randomindex].de;
+    }
+    //Je nach gewählter Schwierigkeit werden 5, 10 oder 15 Übungen ausgewählt und in das Array ExerciseSentences eingefügt
+    function setDifficulty(_difficulty) {
+        let exerciseSentences = [];
+        for (let index = 0; index < _difficulty; index++) {
+            let pointer = Math.round(Math.random() * alleAufgaben.length);
+            let newSentence = getSentence(pointer);
+            exerciseSentences.push(newSentence);
+        }
+    }
+    //Verschiebt die ausgewählte Aufgabe in den temporären Aufgabenhalter, damit keine doppelte Selektion möglich ist und die Aufgabe gelöst werden muss
+    function getSentence(_pointer) {
+        let chosenExercise = alleAufgaben.splice(_pointer, 1);
+        return chosenExercise[0];
+    }
+    function mixWords(_words) {
+        let counter = _words.length;
+        let mixedWords = [];
+        for (let index = 0; index < counter; index++) {
+            let pointer = Math.round(Math.random() * _words.length);
+            mixedWords.push(_words.splice(pointer, 1)[0]);
+        }
+        return mixedWords;
+    }
+    function showExercise(_task) {
+        document.querySelector("#easy").innerHTML = mixWords(_task.words)[0];
     }
     function easy() {
-        console.log("1");
-        index++;
+        setDifficulty(5);
     }
     function medium() {
-        console.log("2");
-        index++;
+        setDifficulty(10);
     }
     function hard() {
-        console.log("3");
-        index++;
+        setDifficulty(15);
     }
     function language() {
         if (document.querySelector("#language").getAttribute("class") == "spain") {
