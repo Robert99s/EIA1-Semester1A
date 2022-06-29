@@ -1,50 +1,75 @@
 body {
-    height: 375px;
-    width: 667px;
-    background-color: rgb(179, 170, 170);
     font-family: Arial, Helvetica, sans-serif;
 }
 
 .app {
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
     text-align: center;
+    width: 375px;
+    height: 667px;
+    background-color: rgb(179, 170, 170);
 }
 
-#leicht {
+.textfield {
     border-style: outset;
     border-radius: 10px;
+    border-color: black;
+    width: 300px;
+    padding: 15px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#de {
+    background-color: rgb(65, 97, 167);
+}
+
+#translator {
+    background-color: rgb(94, 208, 253);
+}
+
+#scoreboard {
+    margin-top: 20px;
+    background-color: rgb(68, 167, 65);
+}
+
+button {
+    margin-top: 10px;
+    border-style: outset;
+    border-radius: 10px;
+    border-color: black;
+    width: 200px;
+    padding: 15px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#easy {
     background-color: rgb(255, 234, 41);
-    border-color: black;
-    width: 100px;
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
 }
 
-#mittel {
-    border-style: outset;
-    border-radius: 10px;
+#medium {
     background-color: rgb(255, 159, 32);
-    border-color: black;
-    width: 100px;
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
 }
 
-#schwer {
-    border-style: outset;
-    border-radius: 10px;
+#hard {
     background-color: rgb(250, 100, 100);
-    border-color: black;
-    width: 100px;
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
+}
+
+.ukraine {
+    background: linear-gradient(#005BBB 0%, #005BBB 50%, #FFD500 50%, #FFD500 100%);
+}
+
+.spain {
+    background: linear-gradient(#AA151B 0%, #AA151B 33%, #F1BF00 33%, #F1BF00 67%, #AA151B 67%, #AA151B 100%)
+}
+
+#rules {
+    background-color: rgb(253, 101, 101);
 }
 
 footer {
-    background-color: rgb(179, 170, 170);
-    padding: 30px;
+    padding: 20px;
 }
