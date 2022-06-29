@@ -55,7 +55,7 @@ function playBeat (): void {
             myInterval = setInterval(mix, 250);
             function mix(): void {
                 index = Math.floor(Math.random() * 5);
-                playSample(sounds[index]);    
+                playSample(sounds[index]);       
             }
 
             playback = true;
