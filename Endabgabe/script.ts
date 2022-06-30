@@ -9,78 +9,78 @@ window.addEventListener("load", function(): void {
     
     var alleAufgaben: Aufgaben[] = [
     {
-        de: "Ich heiße Carlos",
+        de: "Ich heiße Robert",
         ukr: ["Мене", "звати", "Роберт"],
-        words: ["Me", "Llamo", "Carlos"]
+        words: ["Me", "Llamo", "Roberto"]
     },
     {
         de: "Guten Morgen Pablo",
-        ukr: ["Мене", "звати", "Роберт"],
+        ukr: ["Доброго", "ранку", "Пабло"],
         words: ["Buenos", "Dias", "Pablo"]
     },
     {
         de: "Entschuldigung, das verstehe ich nicht",
-        ukr: ["Мене", "звати", "Роберт"],
+        ukr: ["Шкода,", "що", "я", "не", "розумію"],
         words: ["Perdón", "No", "Entiendo"]
     },
     {
         de: "Ich spreche nicht viel Spanisch",
-        ukr: ["Мене", "звати", "Роберт"],
+        ukr: ["Я", "мало", "розмовляю", "іспанською"],
         words: ["No", "Hablo", "Mucho", "Español"]
     },
     {
         de: "Wie spricht man das aus?",
-        ukr: ["Мене", "звати", "Роберт"],
+        ukr: ["як", "ви", "це", "вимовляєте?"],
         words: ["¿Cómo", "Se", "Pronuncia", "Esto?"]
     },
     {
         de: "Könnten Sie das bitte wiederholen?",
-        ukr: ["Мене", "звати", "Роберт"],
+        ukr: ["Ви", "можете", "повторити,", "що?"],
         words: ["¿Uste", "Podría", "Repetirlo", "Por", "Favor?"]
     },
     {
         de: "Woher kommst Du?",
-        ukr: ["Мене", "звати", "Роберт"],
+        ukr: ["Звідки", "ти", "родом?"],
         words: ["De", "Dónde", "Eres?"]
     },
     {
-        de: " Wie geht es dir?",
-        ukr: ["Мене", "звати", "Роберт"],
-        words: ["Cómo", "Està", "usted?"]
+        de: "Wie geht es dir?",
+        ukr: ["Як", "ти?"],
+        words: ["Cómo", "Està", "Usted?"]
     },
     {
         de: "Danke gut. Und selbst?",
-        ukr: ["Мене", "звати", "Роберт"],
+        ukr: ["Добре,", "дякую.", "І", "навіть?"],
         words: ["Bien", "Gracias", "Y", "Tu?"]
     },
     {
         de: "Ich komme aus Madrid",
-        ukr: ["Мене", "звати", "Роберт"],
+        ukr: ["Я", "з", "Мадрида"],
         words: ["Soy", "De", "Madrid"]
     },
     {
         de: "Die Karte bitte!",
-        ukr: ["Мене", "звати", "Роберт"],
+        ukr: ["Меню", "будь", "ласка!"],
         words: ["La", "Carta,", "Por", "favor!"]
     },
     {
         de: "Die Rechnung bitte!",
-        ukr: ["Мене", "звати", "Роберт"],
+        ukr: ["Законопроект,", "будь", "ласка!"],
         words: ["La", "Cuenta", "Por", "Favor!"]
     },
     {
         de: "Ich schaue mich nur um",
-        ukr: ["Мене", "звати", "Роберт"],
+        ukr: ["Я", "просто", "озираюся"],
         words: ["Sólo", "Estoy", "Mirando"]
     },
     {
         de: "Was kostet das?",
-        ukr: ["Мене", "звати", "Роберт"],
+        ukr: ["Що", "це", "коштує?"],
         words: ["¿Cuánto", "Cuesta", "Esto?"]
     },
     {
         de: "Wo befindet sich das Restaurant?",
-        ukr: ["Мене", "звати", "Роберт"],
+        ukr: ["Де", "знаходиться", "ресторан?"],
         words: ["¿Dónde", "Queda", "El", "Restaurante?"]
     }   
     ];
@@ -91,11 +91,6 @@ window.addEventListener("load", function(): void {
     let setOfTasks: Aufgaben[] = [];
     let clickedWord: number = 0;
     let score: number = 0;
-
-    /*function hard15(): void {
-        var randomindex: number = Math.floor(Math.random() * 15);
-        document.querySelector("#de").innerHTML = alleAufgaben[randomindex].de;
-    }*/
 
     //Je nach gewählter Schwierigkeit werden 5, 10 oder 15 Übungen ausgewählt und in das Array ExerciseSentences eingefügt
     function setDifficulty(_difficulty: number): Aufgaben[] {
@@ -119,16 +114,12 @@ window.addEventListener("load", function(): void {
     function mixWords (_words: string[]): string[] {
         let counter: number = _words.length;
         let mixedWords: string[] = [];
-        let copyOfWords = _words.slice();
-        for (let index = 0; index < counter; index++) {
+        let copyOfWords: string[] = _words.slice();
+        for (let index: number = 0; index < counter; index++) {
             let pointer: number = Math.round(Math.random() * copyOfWords.length - 1);
             mixedWords.push(copyOfWords.splice(pointer, 1)[0]);
         }
         return mixedWords;
-    }
-    
-    function showExercise (_task: Aufgaben): void {
-        document.querySelector("#easy").innerHTML = mixWords(_task.words)[0];
     }
 
     function newTask (_difficulty: number): void {
@@ -185,7 +176,6 @@ window.addEventListener("load", function(): void {
                 } else if (clickedWord == words.length - 1) {
                     translator.innerHTML += _word;
                     clickedWord = 0;
-                    console.log("Alles ist richtig!");
                     score++;  
                     nextTask();            
                 } else {
@@ -216,12 +206,12 @@ window.addEventListener("load", function(): void {
         if (currentDifficulty == exercise - 1) {
             let translator: HTMLElement = document.getElementById("translator");
             let de: HTMLElement = document.getElementById("de");
-            de.innerHTML = "Glückwunsch Sie haben alle Aufgaben gelöst";
+            de.innerHTML = "Glückwunsch, Sie haben alles gelöst!";
             if (currentLanguage == "esp") {
-                translator.innerHTML = "Enhorabuena, has resuelto todas las tareas.";
+                translator.innerHTML = "¡Enhorabuena, lo has solucionado todo!";
 
             } else if (currentLanguage == "ukr") {
-                translator.innerHTML = "Fatty Joe";
+                translator.innerHTML = "Вітаю, ви все вирішили!";
             }
             clearWords();
             return;
@@ -274,9 +264,7 @@ window.addEventListener("load", function(): void {
     }
    
     function rules (): void {
-        alert("Die Sätze durch klick auf die Wörter übersetzen. Richtig/Falsch gibt +1/-1 Punkt.");
-        console.log("+1");
-        
+        alert("Die Sätze durch klick auf die Wörter übersetzen. Richtig/Falsch gibt +1/-1 Punkt. Bei falsch wird der aktuelle Satz außerdem zurückgesetzt.");
     }
 
     document.querySelector("#easy").addEventListener("click", function(): void { newTask(5); });
