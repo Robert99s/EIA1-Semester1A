@@ -2,94 +2,101 @@ window.addEventListener("load", function () {
     var alleAufgaben = [
         {
             de: "Ich heiße Carlos",
-            esp: "Me llamo Carlos",
+            ukr: ["Мене", "звати", "Роберт"],
             words: ["Me", "Llamo", "Carlos"]
         },
         {
             de: "Guten Morgen Pablo",
-            esp: "Buenos Dias Pablo",
+            ukr: ["Мене", "звати", "Роберт"],
             words: ["Buenos", "Dias", "Pablo"]
         },
         {
             de: "Entschuldigung, das verstehe ich nicht",
-            esp: "Perdón, no entiendo",
+            ukr: ["Мене", "звати", "Роберт"],
             words: ["Perdón", "No", "Entiendo"]
         },
         {
             de: "Ich spreche nicht viel Spanisch",
-            esp: "No hablo mucho español",
+            ukr: ["Мене", "звати", "Роберт"],
             words: ["No", "Hablo", "Mucho", "Español"]
         },
         {
             de: "Wie spricht man das aus?",
-            esp: "¿Cómo se pronuncia esto?",
+            ukr: ["Мене", "звати", "Роберт"],
             words: ["¿Cómo", "Se", "Pronuncia", "Esto?"]
         },
         {
             de: "Könnten Sie das bitte wiederholen?",
-            esp: "¿Uste podría repetirlo, por favor?",
+            ukr: ["Мене", "звати", "Роберт"],
             words: ["¿Uste", "Podría", "Repetirlo", "Por", "Favor?"]
         },
         {
             de: "Woher kommst Du?",
-            esp: "De dónde eres?",
+            ukr: ["Мене", "звати", "Роберт"],
             words: ["De", "Dónde", "Eres?"]
         },
         {
             de: " Wie geht es dir?",
-            esp: "Cómo està usted?",
+            ukr: ["Мене", "звати", "Роберт"],
             words: ["Cómo", "Està", "usted?"]
         },
         {
             de: "Danke gut. Und selbst?",
-            esp: "Bien gracias, y tu?",
+            ukr: ["Мене", "звати", "Роберт"],
             words: ["Bien", "Gracias", "Y", "Tu?"]
         },
         {
             de: "Ich komme aus Madrid",
-            esp: "Soy de Madrid",
+            ukr: ["Мене", "звати", "Роберт"],
             words: ["Soy", "De", "Madrid"]
         },
         {
             de: "Die Karte bitte!",
-            esp: "La carta, por favor!",
+            ukr: ["Мене", "звати", "Роберт"],
             words: ["La", "Carta,", "Por", "favor!"]
         },
         {
             de: "Die Rechnung bitte!",
-            esp: "La cuenta, por favor!",
+            ukr: ["Мене", "звати", "Роберт"],
             words: ["La", "Cuenta", "Por", "Favor!"]
         },
         {
             de: "Ich schaue mich nur um",
-            esp: "Sólo estoy mirando",
+            ukr: ["Мене", "звати", "Роберт"],
             words: ["Sólo", "Estoy", "Mirando"]
         },
         {
             de: "Was kostet das?",
-            esp: "¿Cuánto cuesta esto?",
+            ukr: ["Мене", "звати", "Роберт"],
             words: ["¿Cuánto", "Cuesta", "Esto?"]
         },
         {
             de: "Wo befindet sich das Restaurant?",
-            esp: "¿Dónde queda el restaurante?",
+            ukr: ["Мене", "звати", "Роберт"],
             words: ["¿Dónde", "Queda", "El", "Restaurante?"]
         }
     ];
     let exercise = 0;
+    let currentDifficulty = 0;
+    let currentLanguage = "esp";
+    let setOfTasks = [];
+    let clickedWord = 0;
     let score = 0;
-    function hard15() {
-        var randomindex = Math.floor(Math.random() * 15);
+    /*function hard15(): void {
+        var randomindex: number = Math.floor(Math.random() * 15);
         document.querySelector("#de").innerHTML = alleAufgaben[randomindex].de;
-    }
+    }*/
     //Je nach gewählter Schwierigkeit werden 5, 10 oder 15 Übungen ausgewählt und in das Array ExerciseSentences eingefügt
     function setDifficulty(_difficulty) {
+        currentDifficulty = _difficulty;
         let exerciseSentences = [];
         for (let index = 0; index < _difficulty; index++) {
-            let pointer = Math.round(Math.random() * alleAufgaben.length);
+            // -1, da array von 0-14 anstatt 0-15
+            let pointer = Math.round(Math.random() * alleAufgaben.length - 1);
             let newSentence = getSentence(pointer);
             exerciseSentences.push(newSentence);
         }
+        return exerciseSentences;
     }
     //Verschiebt die ausgewählte Aufgabe in den temporären Aufgabenhalter, damit keine doppelte Selektion möglich ist und die Aufgabe gelöst werden muss
     function getSentence(_pointer) {
@@ -99,32 +106,142 @@ window.addEventListener("load", function () {
     function mixWords(_words) {
         let counter = _words.length;
         let mixedWords = [];
+        let copyOfWords = _words.slice();
         for (let index = 0; index < counter; index++) {
-            let pointer = Math.round(Math.random() * _words.length);
-            mixedWords.push(_words.splice(pointer, 1)[0]);
+            let pointer = Math.round(Math.random() * copyOfWords.length - 1);
+            mixedWords.push(copyOfWords.splice(pointer, 1)[0]);
         }
         return mixedWords;
     }
     function showExercise(_task) {
         document.querySelector("#easy").innerHTML = mixWords(_task.words)[0];
     }
-    function easy() {
-        setDifficulty(5);
+    function newTask(_difficulty) {
+        clearWords();
+        // show difficulties
+        setOfTasks = setDifficulty(_difficulty);
+        nextTask();
     }
-    function medium() {
-        setDifficulty(10);
+    function showGermanTranslation(_aufgabe) {
+        document.getElementById("de").innerHTML = _aufgabe.de;
     }
-    function hard() {
-        setDifficulty(15);
+    function showWords(_words, _aufgabe) {
+        hideMenu();
+        _words.forEach((word, i) => {
+            showWord(word, _aufgabe);
+        });
+    }
+    function hideMenu() {
+        let easyButton = document.getElementById("easy");
+        let mediumButton = document.getElementById("medium");
+        let hardButton = document.getElementById("hard");
+        let languageButton = document.getElementById("language");
+        let rulesButton = document.getElementById("rules");
+        easyButton.style.display = "none";
+        mediumButton.style.display = "none";
+        hardButton.style.display = "none";
+        languageButton.style.display = "none";
+        rulesButton.style.display = "none";
+    }
+    function showWord(_word, _aufgabe) {
+        let elem = document.createElement("button");
+        elem.addEventListener("click", function () {
+            let translator = document.getElementById("translator");
+            let words = [];
+            if (currentLanguage == "esp") {
+                words = _aufgabe.words;
+            }
+            else if (currentLanguage == "ukr") {
+                words = _aufgabe.ukr;
+            }
+            if (testWordIfCorrect(_word, clickedWord, words) == true) {
+                // Setze das Wort in den Kasten ein und mache weiter
+                if (clickedWord == 0) {
+                    translator.innerHTML = "";
+                    translator.innerHTML = _word + " ";
+                    clickedWord++;
+                    score++;
+                }
+                else if (clickedWord == words.length - 1) {
+                    translator.innerHTML += _word;
+                    clickedWord = 0;
+                    console.log("Alles ist richtig!");
+                    score++;
+                    nextTask();
+                }
+                else {
+                    translator.innerHTML += _word + " ";
+                    clickedWord++;
+                    score++;
+                }
+            }
+            else {
+                // Breche ab und starte Aufgabe neu
+                clickedWord = 0;
+                translator.innerHTML = "";
+                score--;
+                if (score < 0) {
+                    score = 0;
+                }
+            }
+            document.querySelector("#score").innerHTML = String(score);
+        });
+        elem.innerHTML = _word;
+        let wordContainer = document.getElementById("words");
+        wordContainer.appendChild(elem);
+    }
+    function nextTask() {
+        exercise++;
+        if (currentDifficulty == exercise - 1) {
+            let translator = document.getElementById("translator");
+            let de = document.getElementById("de");
+            de.innerHTML = "Glückwunsch Sie haben alle Aufgaben gelöst";
+            if (currentLanguage == "esp") {
+                translator.innerHTML = "Enhorabuena, has resuelto todas las tareas.";
+            }
+            else if (currentLanguage == "ukr") {
+                translator.innerHTML = "Fatty Joe";
+            }
+            clearWords();
+            return;
+        }
+        clearWords();
+        // Die neue Aufgabe wird ausgeführt.
+        // TODO: Bei beenden der ersten Aufgabe muss die nächste gezeigt werden
+        let words = [];
+        if (currentLanguage == "esp") {
+            words = mixWords(setOfTasks[exercise - 1].words);
+        }
+        else if (currentLanguage == "ukr") {
+            words = mixWords(setOfTasks[exercise - 1].ukr);
+        }
+        showWords(words, setOfTasks[exercise - 1]);
+        showGermanTranslation(setOfTasks[exercise - 1]);
+    }
+    function testWordIfCorrect(_word, _position, _correctWords) {
+        console.log("Gewählte Wort: " + _word);
+        console.log("Wort an Position " + _position + " ist: " + _correctWords[_position]);
+        if (_word == _correctWords[_position]) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    function clearWords() {
+        let words = document.getElementById("words");
+        words.innerHTML = "";
     }
     function language() {
         if (document.querySelector("#language").getAttribute("class") == "spain") {
+            currentLanguage = "esp";
             document.querySelector("#language").setAttribute("class", "ukraine");
             document.querySelector("h2").innerHTML = String("DE > ESP");
             document.querySelector("#language").innerHTML = String("Ukrainisch");
             document.querySelector("#translator").innerHTML = String("elegir dificultad");
         }
         else {
+            currentLanguage = "ukr";
             document.querySelector("#language").setAttribute("class", "spain");
             document.querySelector("h2").innerHTML = String("DE > UKR");
             document.querySelector("#language").innerHTML = String("Spanisch");
@@ -135,9 +252,9 @@ window.addEventListener("load", function () {
         alert("Die Sätze durch klick auf die Wörter übersetzen. Richtig/Falsch gibt +1/-1 Punkt.");
         console.log("+1");
     }
-    document.querySelector("#easy").addEventListener("click", function () { easy(); });
-    document.querySelector("#medium").addEventListener("click", function () { medium(); });
-    document.querySelector("#hard").addEventListener("click", function () { hard15(); });
+    document.querySelector("#easy").addEventListener("click", function () { newTask(5); });
+    document.querySelector("#medium").addEventListener("click", function () { newTask(10); });
+    document.querySelector("#hard").addEventListener("click", function () { newTask(15); });
     document.querySelector("#language").addEventListener("click", function () { language(); });
     document.querySelector("#rules").addEventListener("click", function () { rules(); });
 });
