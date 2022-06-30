@@ -189,6 +189,7 @@ window.addEventListener("load", function () {
     }
     function nextTask() {
         exercise++;
+        document.querySelector("#translator").innerHTML = String("");
         if (currentDifficulty == exercise - 1) {
             let translator = document.getElementById("translator");
             let de = document.getElementById("de");

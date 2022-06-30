@@ -3,6 +3,7 @@ body {
 }
 
 .app {
+    position: relative;
     margin: auto;
     text-align: center;
     width: 375px;
@@ -15,6 +16,7 @@ body {
     border-radius: 10px;
     border-color: black;
     width: 300px;
+    height: 20px;
     padding: 15px;
     position: relative;
     margin-left: auto;
@@ -27,11 +29,6 @@ body {
 
 #translator {
     background-color: rgb(94, 208, 253);
-}
-
-#scoreboard {
-    margin-top: 20px;
-    background-color: rgb(68, 167, 65);
 }
 
 button {
@@ -92,9 +89,21 @@ button {
     color: black;
     transform: rotate(90deg);
     margin-left: -56px;
-    margin-top: auto;
+    bottom:50%;
+}
+
+#scoreboard {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 50px;
+    background-color: rgb(68, 167, 65);
 }
 
 footer {
+    position: absolute;
+    bottom: 0;
+    left: 34px;
+    right: 34px;
     padding: 20px;
 }

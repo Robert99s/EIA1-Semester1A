@@ -208,6 +208,7 @@ window.addEventListener("load", function(): void {
 
     function nextTask(): void {
         exercise++;
+        document.querySelector("#translator").innerHTML = String("");
         if (currentDifficulty == exercise - 1) {
             let translator: HTMLElement = document.getElementById("translator");
             let de: HTMLElement = document.getElementById("de");
