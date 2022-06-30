@@ -70,6 +70,31 @@ button {
     background-color: rgb(253, 101, 101);
 }
 
+#chart {
+    position: fixed;
+    width: 30px;
+    height: 300px;
+    margin-left: 315px;
+    margin-top: 140px;
+    background-color: white;
+}
+
+#progressbar {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    background: #4dffff;
+    bottom: 0;
+}
+
+#progresstext {
+    position: absolute;
+    color: black;
+    transform: rotate(90deg);
+    margin-left: -56px;
+    margin-top: auto;
+}
+
 footer {
     padding: 20px;
 }

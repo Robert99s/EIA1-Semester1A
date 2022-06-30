@@ -82,6 +82,7 @@ window.addEventListener("load", function () {
     let setOfTasks = [];
     let clickedWord = 0;
     let score = 0;
+    let doneExercise = 0;
     //Je nach gewählter Schwierigkeit werden 5, 10 oder 15 Übungen ausgewählt und in das Array ExerciseSentences eingefügt
     function setDifficulty(_difficulty) {
         currentDifficulty = _difficulty;
@@ -159,6 +160,7 @@ window.addEventListener("load", function () {
                     translator.innerHTML += _word;
                     clickedWord = 0;
                     score++;
+                    doneExercise++;
                     nextTask();
                 }
                 else {
@@ -178,6 +180,8 @@ window.addEventListener("load", function () {
                 }
             }
             document.querySelector("#score").innerHTML = String(score);
+            document.querySelector("#progress").innerHTML = String("Übung " + doneExercise + "/" + currentDifficulty);
+            document.querySelector("#progressbar").setAttribute("style", "height: " + Number(doneExercise) / (currentDifficulty) * 100 + "%");
         });
         elem.innerHTML = _word;
         let wordContainer = document.getElementById("words");

@@ -91,12 +91,13 @@ window.addEventListener("load", function(): void {
     let setOfTasks: Aufgaben[] = [];
     let clickedWord: number = 0;
     let score: number = 0;
+    let doneExercise: number = 0;
 
     //Je nach gewählter Schwierigkeit werden 5, 10 oder 15 Übungen ausgewählt und in das Array ExerciseSentences eingefügt
     function setDifficulty(_difficulty: number): Aufgaben[] {
         currentDifficulty = _difficulty;
         let exerciseSentences: Aufgaben[] = [];
-        for (let index = 0; index < _difficulty; index++) {
+        for (let index: number = 0; index < _difficulty; index++) {
             // -1, da array von 0-14 anstatt 0-15
              let pointer: number = Math.round(Math.random() * alleAufgaben.length - 1);
              let newSentence: Aufgaben = getSentence(pointer);
@@ -176,7 +177,8 @@ window.addEventListener("load", function(): void {
                 } else if (clickedWord == words.length - 1) {
                     translator.innerHTML += _word;
                     clickedWord = 0;
-                    score++;  
+                    score++;
+                    doneExercise++;
                     nextTask();            
                 } else {
                     translator.innerHTML += _word + " ";
@@ -196,6 +198,8 @@ window.addEventListener("load", function(): void {
             }
 
             document.querySelector("#score").innerHTML = String (score);
+            document.querySelector("#progress").innerHTML = String ("Übung " + doneExercise + "/" + currentDifficulty);
+            document.querySelector("#progressbar").setAttribute("style", "height: " + Number (doneExercise) / (currentDifficulty) * 100 + "%");
         });
         elem.innerHTML = _word;
         let wordContainer: HTMLElement = document.getElementById("words");
