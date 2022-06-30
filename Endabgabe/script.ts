@@ -189,6 +189,7 @@ window.addEventListener("load", function(): void {
                 clickedWord = 0;
                 translator.innerHTML = "";
                 score--;
+                alert("Falsch - Minuspunkt! Lösen Sie den Satz erneut!");
                 if ( score < 0 ) {
                     score = 0;
                 }
