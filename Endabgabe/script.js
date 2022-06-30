@@ -241,7 +241,7 @@ window.addEventListener("load", function () {
         }
     }
     function rules() {
-        alert("Die Sätze durch klick auf die Wörter übersetzen. Richtig/Falsch gibt +1/-1 Punkt. Bei falsch wird der aktuelle Satz außerdem zurückgesetzt.");
+        alert("Die Sätze durch klick auf die Wörter übersetzen. Richtig/Falsch gibt +1/-1 Punkt. Bei falsch wird der aktuelle Satz außerdem zurückgesetzt. Leicht = 5 Runden, Mittel = 10 und Schwer = 15. Optional auch in ukrainisch spielbar.");
     }
     document.querySelector("#easy").addEventListener("click", function () { newTask(5); });
     document.querySelector("#medium").addEventListener("click", function () { newTask(10); });
