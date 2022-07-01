@@ -7,7 +7,7 @@ window.addEventListener("load", function(): void {
         words: string[];
     }
     
-    // Array mit den 15 Übungen beinhaltet die deutsche Version, und die spanische als auch die ukrainische Version in Form eines Arrays innerhalb des Interface Arrays
+    // Array mit den 15 Übungen, beinhaltet die deutsche Version, und die spanische als auch die ukrainische Version in Form eines Arrays innerhalb des Interface Arrays
     var alleAufgaben: Aufgaben[] = [
     {
         de: "Ich heiße Robert",
@@ -95,7 +95,7 @@ window.addEventListener("load", function(): void {
     let score: number = 0;
     let doneExercise: number = 0;
 
-    //Funktion je nach gewählter Schwierigkeit werden 5, 10 oder 15 Übungen ausgewählt und in das Array ExerciseSentences eingefügt
+    // Je nach gewählter Schwierigkeit werden 5, 10 oder 15 Übungen zufällig ausgewählt und in das Array ExerciseSentences eingefügt
     function setDifficulty(_difficulty: number): Aufgaben[] {
         currentDifficulty = _difficulty;
         let exerciseSentences: Aufgaben[] = [];
@@ -108,13 +108,13 @@ window.addEventListener("load", function(): void {
         return exerciseSentences;
     }
 
-    // Funktion verschiebt die ausgewählte Aufgabe in den temporären Aufgabenhalter, damit keine doppelte Selektion möglich ist und die Aufgabe gelöst werden muss
+    // Verschiebt die ausgewählte Aufgabe in den temporären Aufgabenhalter, damit keine doppelte Selektion möglich ist und die Aufgabe gelöst werden muss
     function getSentence (_pointer: number): Aufgaben {
         let chosenExercise: Aufgaben[] = alleAufgaben.splice(_pointer, 1);
         return chosenExercise[0];
     }
 
-    // Funktion lässt die Wörter durch mischen, damit die zu wählenden Wörter durcheinander ausgespuckt werden
+    // Mischt die Wörter, damit die zu wählenden Wörter durcheinander ausgespuckt werden
     function mixWords (_words: string[]): string[] {
         let counter: number = _words.length;
         let mixedWords: string[] = [];
@@ -126,21 +126,21 @@ window.addEventListener("load", function(): void {
         return mixedWords;
     }
 
+    // Die Anzahl der Aufgaben werden je nach Schwierigkeit aus dem temporären Aufgabenhalter gezogen
     function newTask (_difficulty: number): void {
         clearWords();
-        // show difficulties
         setOfTasks = setDifficulty(_difficulty);
 
         nextTask();
         
     }
 
-    // Funktion um die zum aktuellen Zeitpunkt zu lösende Aufgabe in deutsch anzuzeigen
+    // Die Aufgabe wird in deutsch angzeigt, damit der Nutzer weis welchen Satz er zu lösen hat
     function showGermanTranslation(_aufgabe: Aufgaben): void {
         document.getElementById("de").innerHTML = _aufgabe.de;
     }
 
-    // Funktion um die anzuwählenden Wörter der aktiven Aufgabe anzuzeigen und das Menü verschwinden zu lassen
+    // Die wählbaren Wörter der aktiven Aufgabe werden anzuzeigen und das Menü verschwindet
     function showWords(_words: string[], _aufgabe: Aufgaben): void {
         hideMenu();
         _words.forEach((word, i) => {
@@ -156,7 +156,7 @@ window.addEventListener("load", function(): void {
         let languageButton: HTMLElement = document.getElementById("language");
         let rulesButton: HTMLElement = document.getElementById("rules");
 
-        // Funktion um Varibalen der Buttons bennen
+        // Die Menübuttons werden ausgeblendet
         easyButton.style.display = "none";
         mediumButton.style.display = "none";
         hardButton.style.display = "none";
@@ -164,7 +164,7 @@ window.addEventListener("load", function(): void {
         rulesButton.style.display = "none";
     }
 
-    // Funktion um die Sprachlern-App auszuführen
+    // Die Button mit den Antwortmöglichkeiten werden erstellt und angezeigt
     function showWord(_word: string, _aufgabe: Aufgaben): void {
         let elem: HTMLButtonElement = document.createElement("button");
         elem.addEventListener("click", function(): void {
@@ -172,8 +172,10 @@ window.addEventListener("load", function(): void {
             let words: string[] = [];
             if (currentLanguage == "esp") {
                 words = _aufgabe.words;
+                // frägt ab ob spanisch gespielt wird
             } else if (currentLanguage == "ukr") {
                 words = _aufgabe.ukr;
+                // frägt ab ob ukrainisch gespielt wird
             }
             if (testWordIfCorrect(_word, clickedWord, words) == true) {
                 // Setze das Wort in den Kasten ein und mache weiter
@@ -182,6 +184,7 @@ window.addEventListener("load", function(): void {
                     translator.innerHTML = _word + " ";
                     clickedWord++;
                     score++;
+                    // Erste Antwortmöglichkeit ist richtig, Übersetzer wird geleert
                 } else if (clickedWord == words.length - 1) {
                     translator.innerHTML += _word;
                     clickedWord = 0;
@@ -189,22 +192,24 @@ window.addEventListener("load", function(): void {
                     doneExercise++;
                     setTimeout(function(): void {
                         nextTask(); 
-                    },         1000 );           
+                    },         1000 );
+                    // Letzte Antwort war richtig, Aufgabe wurde gelöst, nächste Aufgabe kommt nach 1 Sekunde       
                 } else {
                     translator.innerHTML += _word + " ";
                     clickedWord++;
                     score++;
+                    // Richtige Antworten die innerhalb des Satzanfangs und Ende stehen werden zur Übersetzung hinzugefügt
                 }
                 
             } else {
-                // Nutzer hinweisen auf ein Fehler, Aufgabe abbrechen und Aufgabe neu starten
+                // Nutzer hinweisen auf Fehler, Aufgabe abbrechen und neu starten
                 clickedWord = 0;
                 translator.innerHTML = "";
                 score--;
                 alert("Falsch - Minuspunkt! Lösen Sie den Satz erneut!");
                 if ( score < 0 ) {
                     score = 0;
-                    // damit der Score nicht in den negativen Bereich fallen kann
+                    // Score kann nicht negativ sein
                 }
             }
 
@@ -218,7 +223,7 @@ window.addEventListener("load", function(): void {
         wordContainer.appendChild(elem);
     }
 
-    // Funktion bei Beenden des Kurses
+    // Funktion gibt dem Nutzer solange eine neue Aufgabe, bis alle gelöst wurden, anschließend wird ihm zum absolvieren gratuliert
     function nextTask(): void {
         exercise++;
         document.querySelector("#translator").innerHTML = String("");
@@ -228,7 +233,8 @@ window.addEventListener("load", function(): void {
             de.innerHTML = "Glückwunsch, Sie haben alles gelöst!";
             setTimeout(function(): void {
                 refresh(); 
-            },         3000 );   
+            },         3000 ); 
+            // nach 3 Sekunden wird der Nutzer ins Menü zurückgebracht  
             if (currentLanguage == "esp") {
                 translator.innerHTML = "¡Enhorabuena, lo has solucionado todo!";
                 // Gratulation auf spanisch
@@ -240,13 +246,8 @@ window.addEventListener("load", function(): void {
             return;
         }
 
-        // Nach dem Kurs wird die Seite neu geladen, der Nutzer wird automatisch ins Menü gebracht
-        function refresh(): void {
-            location.reload();
-        }
-
         clearWords();
-        // Die neue Aufgabe wird ausgeführt.
+        // Die neue Aufgabe wird ausgeführt
         let words: string[] = [];
         if (currentLanguage == "esp") {
             words = mixWords(setOfTasks[exercise - 1].words);
@@ -257,6 +258,11 @@ window.addEventListener("load", function(): void {
         showWords(words, setOfTasks[exercise - 1]);
         showGermanTranslation(setOfTasks[exercise - 1]);
     }
+
+    // Funktion um die Seite neu zu laden, damit man zurück ins Menü kehrt
+    function refresh(): void {
+            location.reload();
+        }
 
     // Funktion um zu prüfen ob die Eingabe des Nutzers korrekt ist
     function testWordIfCorrect(_word: string, _position: number, _correctWords: string[]): boolean {
@@ -292,7 +298,7 @@ window.addEventListener("load", function(): void {
         }
     }
    
-    // Funktion um die Regeln anzuzeigen
+    // Regeln sollen als Alert ausgegeben werden
     function rules (): void {
         alert("Die Sätze durch klick auf die Wörter übersetzen. Richtig/Falsch gibt +1/-1 Punkt. Bei falsch wird der aktuelle Satz außerdem zurückgesetzt. Leicht = 5 Runden, Mittel = 10 und Schwer = 15. Optional auch in ukrainisch spielbar.");
     }
