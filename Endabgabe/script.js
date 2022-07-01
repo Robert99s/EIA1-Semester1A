@@ -53,7 +53,7 @@ window.addEventListener("load", function () {
         {
             de: "Die Karte bitte!",
             ukr: ["Меню", "будь", "ласка!"],
-            words: ["La", "Carta,", "Por", "favor!"]
+            words: ["La", "Carta,", "Por", "Favor!"]
         },
         {
             de: "Die Rechnung bitte!",
