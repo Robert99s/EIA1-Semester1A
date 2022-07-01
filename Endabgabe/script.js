@@ -1,4 +1,5 @@
 window.addEventListener("load", function () {
+    // Array mit den 15 Übungen beinhaltet die deutsche Version, und die spanische als auch die ukrainische Version in Form eines Arrays innerhalb des Interface Arrays
     var alleAufgaben = [
         {
             de: "Ich heiße Robert",
@@ -76,6 +77,7 @@ window.addEventListener("load", function () {
             words: ["¿Dónde", "Queda", "El", "Restaurante?"]
         }
     ];
+    // Variablen benennen
     let exercise = 0;
     let currentDifficulty = 0;
     let currentLanguage = "esp";
@@ -83,7 +85,7 @@ window.addEventListener("load", function () {
     let clickedWord = 0;
     let score = 0;
     let doneExercise = 0;
-    //Je nach gewählter Schwierigkeit werden 5, 10 oder 15 Übungen ausgewählt und in das Array ExerciseSentences eingefügt
+    //Funktion je nach gewählter Schwierigkeit werden 5, 10 oder 15 Übungen ausgewählt und in das Array ExerciseSentences eingefügt
     function setDifficulty(_difficulty) {
         currentDifficulty = _difficulty;
         let exerciseSentences = [];
@@ -95,11 +97,12 @@ window.addEventListener("load", function () {
         }
         return exerciseSentences;
     }
-    //Verschiebt die ausgewählte Aufgabe in den temporären Aufgabenhalter, damit keine doppelte Selektion möglich ist und die Aufgabe gelöst werden muss
+    // Funktion verschiebt die ausgewählte Aufgabe in den temporären Aufgabenhalter, damit keine doppelte Selektion möglich ist und die Aufgabe gelöst werden muss
     function getSentence(_pointer) {
         let chosenExercise = alleAufgaben.splice(_pointer, 1);
         return chosenExercise[0];
     }
+    // Funktion lässt die Wörter durch mischen, damit die zu wählenden Wörter durcheinander ausgespuckt werden
     function mixWords(_words) {
         let counter = _words.length;
         let mixedWords = [];
@@ -116,27 +119,32 @@ window.addEventListener("load", function () {
         setOfTasks = setDifficulty(_difficulty);
         nextTask();
     }
+    // Funktion um die zum aktuellen Zeitpunkt zu lösende Aufgabe in deutsch anzuzeigen
     function showGermanTranslation(_aufgabe) {
         document.getElementById("de").innerHTML = _aufgabe.de;
     }
+    // Funktion um die anzuwählenden Wörter der aktiven Aufgabe anzuzeigen und das Menü verschwinden zu lassen
     function showWords(_words, _aufgabe) {
         hideMenu();
         _words.forEach((word, i) => {
             showWord(word, _aufgabe);
         });
     }
+    // Funktion um die Buttons die im Menü angezeigt werden verschwinden zu lassen
     function hideMenu() {
         let easyButton = document.getElementById("easy");
         let mediumButton = document.getElementById("medium");
         let hardButton = document.getElementById("hard");
         let languageButton = document.getElementById("language");
         let rulesButton = document.getElementById("rules");
+        // Funktion um Varibalen der Buttons bennen
         easyButton.style.display = "none";
         mediumButton.style.display = "none";
         hardButton.style.display = "none";
         languageButton.style.display = "none";
         rulesButton.style.display = "none";
     }
+    // Funktion um die Sprachlern-App auszuführen
     function showWord(_word, _aufgabe) {
         let elem = document.createElement("button");
         elem.addEventListener("click", function () {
@@ -172,15 +180,17 @@ window.addEventListener("load", function () {
                 }
             }
             else {
-                // Breche ab und starte Aufgabe neu
+                // Nutzer hinweisen auf ein Fehler, Aufgabe abbrechen und Aufgabe neu starten
                 clickedWord = 0;
                 translator.innerHTML = "";
                 score--;
                 alert("Falsch - Minuspunkt! Lösen Sie den Satz erneut!");
                 if (score < 0) {
                     score = 0;
+                    // damit der Score nicht in den negativen Bereich fallen kann
                 }
             }
+            // um den live Score, sowie den Stand der aktuellen Übung und den Fortschritt der Übung als Blakendiagramm darzustellen
             document.querySelector("#score").innerHTML = String(score);
             document.querySelector("h2").innerHTML = String("Übung " + doneExercise + "/" + currentDifficulty);
             document.querySelector("#progressbar").setAttribute("style", "height: " + Number(doneExercise) / (currentDifficulty) * 100 + "%");
@@ -189,6 +199,7 @@ window.addEventListener("load", function () {
         let wordContainer = document.getElementById("words");
         wordContainer.appendChild(elem);
     }
+    // Funktion bei Beenden des Kurses
     function nextTask() {
         exercise++;
         document.querySelector("#translator").innerHTML = String("");
@@ -196,18 +207,26 @@ window.addEventListener("load", function () {
             let translator = document.getElementById("translator");
             let de = document.getElementById("de");
             de.innerHTML = "Glückwunsch, Sie haben alles gelöst!";
+            setTimeout(function () {
+                refresh();
+            }, 3000);
             if (currentLanguage == "esp") {
                 translator.innerHTML = "¡Enhorabuena, lo has solucionado todo!";
+                // Gratulation auf spanisch
             }
             else if (currentLanguage == "ukr") {
                 translator.innerHTML = "Вітаю, ви все вирішили!";
+                // Gratulation in ukrainisch
             }
             clearWords();
             return;
         }
+        // Nach dem Kurs wird die Seite neu geladen, der Nutzer wird automatisch ins Menü gebracht
+        function refresh() {
+            location.reload();
+        }
         clearWords();
         // Die neue Aufgabe wird ausgeführt.
-        // TODO: Bei beenden der ersten Aufgabe muss die nächste gezeigt werden
         let words = [];
         if (currentLanguage == "esp") {
             words = mixWords(setOfTasks[exercise - 1].words);
@@ -218,6 +237,7 @@ window.addEventListener("load", function () {
         showWords(words, setOfTasks[exercise - 1]);
         showGermanTranslation(setOfTasks[exercise - 1]);
     }
+    // Funktion um zu prüfen ob die Eingabe des Nutzers korrekt ist
     function testWordIfCorrect(_word, _position, _correctWords) {
         console.log("Gewählte Wort: " + _word);
         console.log("Wort an Position " + _position + " ist: " + _correctWords[_position]);
@@ -228,10 +248,12 @@ window.addEventListener("load", function () {
             return false;
         }
     }
+    // Funktion um die Buttons mit den Wörtern zu leeren
     function clearWords() {
         let words = document.getElementById("words");
         words.innerHTML = "";
     }
+    // Funktion um die Sprache zu ändern
     function language() {
         if (document.querySelector("#language").getAttribute("class") == "spain") {
             currentLanguage = "esp";
@@ -248,9 +270,11 @@ window.addEventListener("load", function () {
             document.querySelector("#translator").innerHTML = String("вибрати складність");
         }
     }
+    // Funktion um die Regeln anzuzeigen
     function rules() {
         alert("Die Sätze durch klick auf die Wörter übersetzen. Richtig/Falsch gibt +1/-1 Punkt. Bei falsch wird der aktuelle Satz außerdem zurückgesetzt. Leicht = 5 Runden, Mittel = 10 und Schwer = 15. Optional auch in ukrainisch spielbar.");
     }
+    // Klick-Events bei Klick der Buttons wird der jeweilige Kurs gestartet, die Sprache geändert oder die Regeln angezeigt
     document.querySelector("#easy").addEventListener("click", function () { newTask(5); });
     document.querySelector("#medium").addEventListener("click", function () { newTask(10); });
     document.querySelector("#hard").addEventListener("click", function () { newTask(15); });
