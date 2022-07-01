@@ -179,7 +179,9 @@ window.addEventListener("load", function(): void {
                     clickedWord = 0;
                     score++;
                     doneExercise++;
-                    nextTask();            
+                    setTimeout(function(): void {
+                        nextTask(); 
+                    },         1000 );           
                 } else {
                     translator.innerHTML += _word + " ";
                     clickedWord++;
@@ -198,7 +200,7 @@ window.addEventListener("load", function(): void {
             }
 
             document.querySelector("#score").innerHTML = String (score);
-            document.querySelector("#progress").innerHTML = String ("Übung " + doneExercise + "/" + currentDifficulty);
+            document.querySelector("h2").innerHTML = String ("Übung " + doneExercise + "/" + currentDifficulty);
             document.querySelector("#progressbar").setAttribute("style", "height: " + Number (doneExercise) / (currentDifficulty) * 100 + "%");
         });
         elem.innerHTML = _word;
